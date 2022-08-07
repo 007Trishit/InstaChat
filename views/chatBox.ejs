@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <title>WeChAt</title>
+    
+    <link rel="stylesheet" href="<%= locals.assetPath('css/chatBox.css') %>">
+    <link rel="stylesheet" href="<%= locals.assetPath('css/header.css') %>">
+    <link rel="stylesheet" href="<%= locals.assetPath('css/footer.css') %>">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <%- include('_header'); %>
+    <h1 id="chat-name"><%= name %></h1>
+    <div id="chat-wrapper">
+        <div id="body-chat">
+            <% if(locals.messages){ %>
+                <% for(m of messages){ %>
+                    <% if(m.from==locals.user.email){ %>
+                        <p class="self-mssg">
+                            <% if(m.type&&m.type==1){ %>
+                                <img src="<%= m.content %>" class="img" alt="">
+                            <% }else{ %>
+                                <%= m.content %>
+                            <% } %>
+                        </p>
+                    <% } %>   
+                    <% if(m.from!=locals.user.email){ %>
+                        <p class="other-mssg">
+                            <small><%= name %></small>
+                            <% if(m.type&&m.type==1){ %>
+                                <img src="<%= m.content %>" class="img" alt="">
+                            <% }else{ %>
+                                <%= m.content %>
+                            <% } %>
+                        </p>
+                    <% } %>    
+                <% } %>    
+            <% } %>    
+        </div>
+        <div id="send">
+            <input id="mssg-form" type="text" name="mssg"><input id="mssg-img" type="file"><button id="mssg-send">Send</button>
+        </div>
+    </div>
+    <%- include('_footer'); %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
+    <script src="<%= locals.assetPath('js/chatFrontend.js') %>"></script>
+    <script>
+            <% if(locals.user){ %>
+                new Chat('body-chat','<%=locals.user.email%>','<%= locals.toUser %>');
+            <% } %>    
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+
+<html>
+    <head>
+        <title>
+            <%= title  %>
+        </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/f5c5a3b647.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="<%= locals.assetPath('css/user_profile.css') %>">
+        <link rel="stylesheet" href="<%= locals.assetPath('css/header.css') %>">
+        <link rel="stylesheet" href="<%= locals.assetPath('css/footer.css') %>">
+        <!-- <link rel="stylesheet" href="/css/layout.css"> -->
+
+        
+    </head>
+
+    <body>
+<%- include('_header') %>
+<main id="layout-main">
+
+<img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" width="50%" height="50%">
+
+
+
+<% if(locals.user && locals.user.id == profile_user.id){ %>
+    <!-- if user matches then show the form -->
+    <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST" style="padding:20px;">
+        <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
+        <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required>
+
+        <input type="file" name="avatar" placeholder="Profile Picture">
+        <input type="submit"  value="Update">
+    </form>
+    
+<%}else{%>    
+    <!-- else show only the profile info -->
+    <p><%= profile_user.name %></p>
+<% } %>
+<div>
+    <% if(locals.user && locals.user.id != profile_user.id){ %>
+        <% if(friend){ %>
+            <a href="/friends/remove/<%= profile_user.id %>">Remove Friend</a>
+        <% }else{ %>
+            <a href="/friends/add/<%= profile_user.id %>">Add Friend</a>
+        <% } %>    
+    <% } %>    
+</div>
+<div>
+    <% if(locals.user && friend){ %>
+        <a href="/message/friend/<%= profile_user.email %>"><i class="fas fa-sms" style="font-size: 2rem;"></i></a>
+     <% } %>
+</div>
+</main>
+
+
+<%- include('_footer') %>
+
+
+<!-- importing this script for creating the comments -->
+        <script src="<%= locals.assetPath('js/home_post_comments2.js') %>" ></script>
+        <script src="<%= locals.assetPath('js/home_posts.js') %>" ></script>
+
+        <script>
+            <% if (flash.success && flash.success.length > 0) {%>
+                new Noty({
+                    theme: 'relax',
+                    text: "<%= flash.success %>",
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                    
+                }).show();    
+            <% } %>
+
+            <% if (flash.error && flash.error.length > 0) {%>
+                new Noty({
+                    theme: 'relax',
+                    text: "<%= flash.error %>",
+                    type: 'error',
+                    layout: 'topRight',
+                    timeout: 1500
+                    
+                }).show();    
+            <% } %>
+        </script>
+        
+    </body>
+</html>
+

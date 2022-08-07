@@ -1,0 +1,25 @@
+
+body{
+    margin: 0;
+    background-color: lightblue;
+    text-align: center;
+
+    #layout-main{
+        height: 100%;
+    }
+}
+#home-container{
+    display: flex;
+    
+    #feed-posts{
+        width: 70%;
+        padding: 10px;
+    }
+
+    #user-friends{
+        width: 30%;
+        padding: 10px;
+        border-left: 1px solid lightgrey;
+        height: 100%;
+    }
+}

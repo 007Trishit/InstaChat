@@ -1,0 +1,57 @@
+{
+  "name": "social-media",
+  "version": "1.0.0",
+  "description": "My all social media web application",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod_start": "NODE_ENV=production nodemon index.js",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
+  },
+  "keywords": [
+    "social"
+  ],
+  "author": "Hrishikesh Mallick",
+  "license": "ISC",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.4.0",
+    "connect-mongodb-session": "^2.4.1",
+    "cookie-parser": "^1.4.4",
+    "crypto": "^1.0.1",
+    "del": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.15.6",
+    "fs": "^0.0.1-security",
+    "gulp-cssnano": "^1.1.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-rev": "^9.0.0",
+    "gulp-sass": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "kue": "^0.11.1",
+    "mongo-connect": "0.0.6",
+    "mongoose": "^5.11.17",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.1",
+    "node-sass": "^4.14.1",
+    "node-sass-middleware": "^0.11.0",
+    "nodemailer": "^6.2.1",
+    "nodemon": "^2.0.12",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "rotating-file-stream": "^2.1.5",
+    "socket.io": "^3.1.2"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-uglify-es": "^2.0.0"
+  }
+}

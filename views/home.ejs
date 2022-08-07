@@ -1,0 +1,101 @@
+
+<html>
+    <head>
+        <title>
+            <%= title  %>
+        </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/f5c5a3b647.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="<%= locals.assetPath('css/home.css') %>">
+        <link rel="stylesheet" href="<%= locals.assetPath('css/header.css') %>">
+        <link rel="stylesheet" href="<%= locals.assetPath('css/footer.css') %>">
+        <!-- <link rel="stylesheet" href="/css/layout.css"> -->
+
+        
+    </head>
+
+    <body>
+        <%- include('_header'); %>
+        <main id="layout-main">
+
+            <div id="home-container">
+                    <section id="users">
+                        <h4>Users</h4>
+                        <% for(u of all_users){ %>
+                            <p>
+                                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+                            </p>
+                        <% } %>
+                    </section>
+                    <section id="feed-posts">
+                        <h4>Posts</h4>
+                        <% if(locals.user){ %>
+                        <form action="/posts/create" id="new-post-form" method="POST">
+                            <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea>
+                            <input type="submit" value="Post">
+                        </form>
+                        <% } %>
+                    
+                        <div id="posts-list-container">
+                            <ul>
+                                <% for(post of posts){ %>
+                                    
+                                    <%- include('_post') %>
+                                    
+                                <% } %>
+                            </ul>
+                        </div>
+                    </section>
+                    
+                    
+                    <section id="user-friends">
+                        <h4>Friends</h4>
+                        <% if(locals.user){ %>
+                            <% for(f of friends){ %>
+                                <p>
+                                    <a href="/users/profile/<%= f._id %>"><%= f.name %></a>
+                                </p>
+                            <% } %>
+                        <% } %>    
+                        
+                    </section>
+            </div>
+        </main>
+
+<%- include('_footer'); %>
+
+<!-- importing this script for creating the comments -->
+        <script src="<%= locals.assetPath('js/home_post_comments2.js') %>" ></script>
+        <script src="<%= locals.assetPath('js/home_posts.js') %>" ></script>
+
+        <script>
+            <% if (flash.success && flash.success.length > 0) {%>
+                new Noty({
+                    theme: 'relax',
+                    text: "<%= flash.success %>",
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                    
+                }).show();    
+            <% } %>
+
+            <% if (flash.error && flash.error.length > 0) {%>
+                new Noty({
+                    theme: 'relax',
+                    text: "<%= flash.error %>",
+                    type: 'error',
+                    layout: 'topRight',
+                    timeout: 1500
+                    
+                }).show();    
+            <% } %>
+        </script>
+        
+    </body>
+</html>
+
