@@ -8,5 +8,3 @@ A Node JS Application which allows registered users to interact among themselves
 #### Used Nodemailer to send Emails
 #### Used PassportJS for Authentication
 #### Used Socket.IO to enable Chat feature
-#### Used KueJS which runs on Redis, to facilitate ‘Delayed Jobs’ 
-#### Used GulpJS to automate processes and enhance repetitive  tasks
